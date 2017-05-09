@@ -4,6 +4,7 @@
  Application required to have Redis running on localhost:6379, this can be changed in redis/RedisConnect.go.
 
 ## Install
+
     git clone https://github.com/babell00/LeaderboardGo.git
     cd LeaderboardGo
     go get

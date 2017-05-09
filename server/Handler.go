@@ -2,16 +2,14 @@ package server
 
 import (
 	"net/http"
-	"log"
 	"encoding/json"
 	"github.com/babell00/LeaderboardGo/rediss"
 	"github.com/babell00/LeaderboardGo/leaderboard"
 	"github.com/gorilla/mux"
+	"log"
 )
 
 func GetLeaderboard(w http.ResponseWriter, r *http.Request) {
-	log.Println("Servving Leaderboard")
-
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
@@ -26,8 +24,6 @@ func GetLeaderboard(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddPlayerScore(w http.ResponseWriter, r *http.Request) {
-	log.Println("Serving Leaderboard")
-
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
