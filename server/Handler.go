@@ -4,29 +4,29 @@ import (
 	"net/http"
 	"log"
 	"encoding/json"
-	"github.com/babell00/LeaderboardGo/leaderboard"
 	"github.com/babell00/LeaderboardGo/rediss"
-	"github.com/go-redis/redis"
+	"github.com/babell00/LeaderboardGo/leaderboard"
+	"github.com/gorilla/mux"
 )
 
-func ShowLeaderboard(w http.ResponseWriter, r *http.Request) {
+func GetLeaderboard(w http.ResponseWriter, r *http.Request) {
 	log.Println("Servving Leaderboard")
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
-	rd := rediss.Connect()
-	client := rd.GetClient()
+	vars := mux.Vars(r)
+	pathParam := vars["game_name"]
 
-	tt := redis.ZRangeBy{"0", "10", 0 , 6}
+	redisService := rediss.GetRedisService()
 
-	results , _ := client.ZRevRangeByScore("sTest1", tt).Result()
+	results := redisService.GetTop10Player(pathParam)
 
 	json.NewEncoder(w).Encode(&results)
 }
 
 func AddPlayerScore(w http.ResponseWriter, r *http.Request) {
-	log.Println("Servving Leaderboard")
+	log.Println("Serving Leaderboard")
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
@@ -40,13 +40,8 @@ func AddPlayerScore(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	rd := rediss.Connect()
-	client := rd.GetClient()
-
-	z := redis.Z{playerScore.Score, playerScore.PlayerName}
-
-	client.ZAdd("sTest1", z)
+	redisService := rediss.GetRedisService()
+	redisService.AddToSortedSet(playerScore.GameName, playerScore.Score, playerScore)
 
 	json.NewEncoder(w).Encode(&playerScore)
 }

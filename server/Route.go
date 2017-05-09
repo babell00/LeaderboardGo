@@ -15,7 +15,7 @@ type Route struct {
 type Routes []Route
 
 var routes = Routes{
-	Route{"ShowLeaderboard", "/leaderboard", "GET", ShowLeaderboard},
+	Route{"GetLeaderboard", "/leaderboard/{game_name}", "GET", GetLeaderboard},
 	Route{"AddPlayerScore", "/playerscore", "POST", AddPlayerScore},
 }
 
