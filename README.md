@@ -15,6 +15,6 @@
     curl -H "Content-Type: application.json" -X POST -d '{"game_name": "my_super_game", "player_name": "tom", "score": 50}' http://localhost:8080/playerscore
 
 ## Getting game's leadeboard(top 10)
- To get leaderboard you need to make GET request to http://localhost:8080/leaderboard/{game name}
+ To get leaderboard you need to make GET request to http://localhost:8080/leaderboard/{game_name}
   
     curl -H "Content-Type: application.json" -X GET http://localhost:8080/leaderboard/my_super_game
