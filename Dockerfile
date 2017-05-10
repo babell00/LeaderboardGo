@@ -4,6 +4,7 @@ ENV REDIS_ADDRESS="localhost:6379"
 
 EXPOSE 8080
 
+
 RUN apk --update add git
 
 ADD . /go/src/app
@@ -12,6 +13,6 @@ WORKDIR /go/src/app
 
 RUN go get -d -v
 
-RUN go build -o app
+RUN go install
 
-CMD ["ping" , "onet.pl"]
+CMD ["/go/bin/app"]

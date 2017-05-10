@@ -19,3 +19,7 @@
  To get leaderboard you need to make GET request to http://localhost:8080/leaderboard/{game_name}
   
     curl -H "Content-Type: application.json" -X GET http://localhost:8080/leaderboard/my_super_game
+
+## Run with Docker
+    docker build -t leaderboard .
+    docker container run --name lb -p 8080:8080 -e REDIS_ADDRESS="192.168.2.11:6379" leaderbaord
