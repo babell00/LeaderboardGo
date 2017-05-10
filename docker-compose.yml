@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  leaderboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_ADDRESS=redis:6379
+    ports:
+      - "8080:8080"
+  redis:
+    image: redis:alpine
