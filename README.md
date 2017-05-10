@@ -13,7 +13,14 @@
 ## Add player's score to leaderboard
  You can add player's score to leaderbaord by making POST request to <br />
  http://localhost:8080/playerscore/ <br />
- 
+ This endpoint expect similar structure to be sent in POST body:
+      
+    {
+    	"game_name": "new_game",
+    	"player_name": "tom",
+    	"score": 50
+    }
+<br />
     curl -H "Content-Type: application.json" -X POST -d '{"game_name": "my_super_game", "player_name": "tom", "score": 50}' http://localhost:8080/playerscore
 
 ## Getting game's leadeboard
