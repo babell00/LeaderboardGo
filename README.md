@@ -34,7 +34,7 @@
 ## Run with Docker
     docker build -t leaderboard .
     docker container run --name lb -p 8080:8080 -e REDIS_ADDRESS="192.168.2.11:6379" leaderbaord
- If you will not provide environment variable REDIS_ADDRESS, application will look for redis in localhost
+ If you will not provide environment variable REDIS_ADDRESS, application will look for redis on localhost
  
 ## Docker-compose
  To run application with redis, execute docker-compose command
