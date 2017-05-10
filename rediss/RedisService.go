@@ -33,8 +33,11 @@ func (service *RedisService) AddToSortedSet(key string, score float64, playerSco
 	service.redisClient.sortedSetAdd(key, score, playerScoreJson)
 }
 
-func (service *RedisService) GetTop10Player(key string) []leaderboard.PlayerScore {
-	results := service.redisClient.sortedSetRangeByScoreDesc(key, "0", "1000", 0, 10)
+func (service *RedisService) GetTopPlayers(key string, size int64) []leaderboard.PlayerScore {
+	if size == 0 {
+		size = 10
+	}
+	results := service.redisClient.sortedSetRangeByScoreDesc(key, "0", "1000", 0, size)
 	return convertResultArrayToPlayerScoreArray(results)
 }
 

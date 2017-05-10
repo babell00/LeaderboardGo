@@ -7,6 +7,7 @@ import (
 	"github.com/babell00/LeaderboardGo/leaderboard"
 	"github.com/gorilla/mux"
 	"log"
+	"strconv"
 )
 
 func GetLeaderboard(w http.ResponseWriter, r *http.Request) {
@@ -16,9 +17,15 @@ func GetLeaderboard(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	pathParam := vars["game_name"]
 
+	sizeStr := r.URL.Query().Get("size")
+	var size int64
+	if sizeStr != "" {
+		size, _ = strconv.ParseInt(sizeStr, 10, 64)
+	}
+
 	redisService := rediss.GetRedisService()
 
-	results := redisService.GetTop10Player(pathParam)
+	results := redisService.GetTopPlayers(pathParam, size)
 
 	json.NewEncoder(w).Encode(&results)
 }
